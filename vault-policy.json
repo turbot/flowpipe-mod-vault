@@ -1,0 +1,1 @@
+{"policy":"path \"secret/data/path\" {\n capabilities = [\"read\"]\n}\n","name":"policy_name"}
