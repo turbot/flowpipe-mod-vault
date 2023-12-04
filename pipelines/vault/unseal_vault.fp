@@ -1,27 +1,25 @@
 pipeline "unseal_vault" {
   title       = "Unseal Vault"
-  description = "Used to unseal the Vault"
+  description = "Used to enter a single root key share to progress the unsealing of the Vault."
 
   param "address" {
     type        = string
+    description = local.address_param_description
     default     = var.address
-    description = "The address of the Vault server."
   }
 
   param "access_token" {
     type        = string
+    description = local.access_token_param_description
     default     = var.access_token
-    description = "The access token to use for the request."
   }
 
-  param "unseal_key" {
-    type = string
-    // default     = "aN056/ea9XlSGcMODWCo/+h7ZCFSLlLzMxbtIbhUJ20="
+  param "key" {
+    type        = string
     description = "Specifies a single root key share."
   }
 
   step "http" "unseal_vault" {
-    title  = "Unseal Vault"
     method = "post"
     url    = "${param.address}/v1/sys/unseal"
 
@@ -31,12 +29,12 @@ pipeline "unseal_vault" {
     }
 
     request_body = jsonencode({
-      key : param.unseal_key
+      key : param.key
     })
   }
 
   output "seal_status" {
-    value       = step.http.unseal_vault.response_body
     description = "The seal status of the Vault server."
+    value       = step.http.unseal_vault.response_body
   }
 }
