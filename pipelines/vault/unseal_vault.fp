@@ -2,16 +2,10 @@ pipeline "unseal_vault" {
   title       = "Unseal Vault"
   description = "Used to enter a single root key share to progress the unsealing of the Vault."
 
-  param "address" {
+  param "cred" {
     type        = string
-    description = local.address_param_description
-    default     = var.address
-  }
-
-  param "access_token" {
-    type        = string
-    description = local.access_token_param_description
-    default     = var.access_token
+    description = local.cred_param_description
+    default     = var.default_cred
   }
 
   param "key" {
@@ -21,11 +15,11 @@ pipeline "unseal_vault" {
 
   step "http" "unseal_vault" {
     method = "post"
-    url    = "${param.address}/v1/sys/unseal"
+    url    = "${credential.vault[param.cred].address}/v1/sys/unseal"
 
     request_headers = {
       "Content-Type"  = "application/json"
-      "X-Vault-Token" = param.access_token
+      "X-Vault-Token" = credential.vault[param.cred].token
     }
 
     request_body = jsonencode({

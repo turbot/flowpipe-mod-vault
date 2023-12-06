@@ -1,2 +1,1 @@
-address="VAULT_ADDRESS"
-access_token="VAULT_ACCESS_TOKEN"
+default_cred = "default"

@@ -2,16 +2,10 @@ pipeline "list_secrets" {
   title       = "List Secrets"
   description = "Returns a list of key names at the specified location."
 
-  param "address" {
+  param "cred" {
     type        = string
-    description = local.address_param_description
-    default     = var.address
-  }
-
-  param "access_token" {
-    type        = string
-    description = local.access_token_param_description
-    default     = var.access_token
+    description = local.cred_param_description
+    default     = var.default_cred
   }
 
   param "path" {
@@ -22,10 +16,10 @@ pipeline "list_secrets" {
 
   step "http" "list_secrets" {
     method = "get"
-    url    = "${param.address}/v1/secret/${param.path != null ? param.path : ""}?list=true"
+    url    = "${credential.vault[param.cred].address}/v1/secret/${param.path != null ? param.path : ""}?list=true"
 
     request_headers = {
-      "X-Vault-Token" = param.access_token
+      "X-Vault-Token" = credential.vault[param.cred].token
     }
   }
 
