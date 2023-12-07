@@ -2,6 +2,10 @@ pipeline "get_secret" {
   title       = "Get Secret"
   description = "Retrieves the secret at the specified location."
 
+  tags = {
+    type = "featured"
+  }
+
   param "cred" {
     type        = string
     description = local.cred_param_description

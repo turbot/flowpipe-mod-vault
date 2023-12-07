@@ -2,6 +2,10 @@ pipeline "unseal_vault" {
   title       = "Unseal Vault"
   description = "Used to enter a single root key share to progress the unsealing of the Vault."
 
+  tags = {
+    type = "featured"
+  }
+
   param "cred" {
     type        = string
     description = local.cred_param_description

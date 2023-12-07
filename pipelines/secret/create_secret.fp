@@ -2,6 +2,10 @@ pipeline "create_secret" {
   title       = "Create secret"
   description = "Stores a secret at the specified location."
 
+  tags = {
+    type = "featured"
+  }
+
   param "cred" {
     type        = string
     description = local.cred_param_description
