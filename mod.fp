@@ -2,7 +2,7 @@ mod "vault" {
   title         = "Hashicorp Vault"
   description   = "Run pipelines to supercharge your Vault workflows using Flowpipe."
   color         = "#4E5FBF"
-  documentation = file("./docs/index.md")
+  documentation = file("./README.md")
   icon          = "/images/mods/turbot/vault.svg"
   categories    = ["access management"]
 
