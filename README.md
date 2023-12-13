@@ -21,13 +21,6 @@ brew tap turbot/tap
 brew install flowpipe
 ```
 
-Clone:
-
-```sh
-git clone https://github.com/turbot/flowpipe-mod-vault.git
-cd flowpipe-mod-vault
-```
-
 ### Credentials
 
 By default, the following environment variables will be used for authentication:
@@ -52,6 +45,54 @@ For more information on credentials in Flowpipe, please see [Managing Credential
 
 ### Usage
 
+[Initialize a mod](https://www.flowpipe.io/docs/mods/index#initializing-a-mod):
+
+```sh
+mkdir my_mod
+cd my_mod
+flowpipe mod init
+```
+
+[Install the Hashicorp Vault mod](https://www.flowpipe.io/docs/mods/mod-dependencies#mod-dependencies) as a dependency:
+
+```sh
+flowpipe mod install github.com/turbot/flowpipe-mod-vault
+```
+
+[Use the dependency](https://www.flowpipe.io/docs/mods/write-pipelines/index) in a pipeline step:
+
+```sh
+vi my_pipeline.fp
+```
+
+```hcl
+pipeline "my_pipeline" {
+
+  step "pipeline" "create_secret" {
+    pipeline = vault.pipeline.create_secret
+    args = {
+      path  = "my_path"
+      secret = "{"key1":"value1","key2":"value2"}"
+    }
+  }
+}
+```
+
+[Run the pipeline](https://www.flowpipe.io/docs/run/pipelines):
+
+```sh
+flowpipe pipeline run my_pipeline
+```
+
+### Developing
+
+Clone:
+
+```sh
+git clone https://github.com/turbot/flowpipe-mod-vault.git
+cd flowpipe-mod-vault
+```
+
 List pipelines:
 
 ```sh
@@ -61,26 +102,14 @@ flowpipe pipeline list
 Run a pipeline:
 
 ```sh
-flowpipe pipeline run list_policies
-```
-
-You can pass in pipeline arguments as well:
-
-```sh
 flowpipe pipeline run create_secret --arg path=my_path --arg secret='{"key1":"value1","key2":"value2"}'
 ```
 
 To use a specific `credential`, specify the `cred` pipeline argument:
 
 ```sh
-flowpipe pipeline run list_policies --arg cred=vault_prod
+flowpipe pipeline run create_secret --arg path=my_path --arg secret='{"key1":"value1","key2":"value2"}' --arg cred=vault_profile
 ```
-
-For more examples on how you can run pipelines, please see [Run Pipelines](https://flowpipe.io/docs/run/pipelines).
-
-### Configuration
-
-No additional configuration is required.
 
 ## Open Source & Contributing
 
