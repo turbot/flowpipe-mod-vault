@@ -18,7 +18,7 @@ pipeline "create_secret" {
   }
 
   param "secret" {
-    type        = object
+    type        = map
     description = "Specifies the secret data to store."
   }
 
