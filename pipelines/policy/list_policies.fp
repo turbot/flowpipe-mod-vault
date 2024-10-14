@@ -2,18 +2,18 @@ pipeline "list_policies" {
   title       = "List Policies"
   description = "Lists all configured policies."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.vault
+    description = local.conn_param_description
+    default     = connection.vault.default
   }
 
   step "http" "list_policies" {
     method = "get"
-    url    = "${credential.vault[param.cred].address}/v1/sys/policy"
+    url    = "${param.conn.address}/v1/sys/policy"
 
     request_headers = {
-      "X-Vault-Token" = credential.vault[param.cred].token
+      "X-Vault-Token" = param.conn.token
     }
   }
 

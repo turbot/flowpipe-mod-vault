@@ -6,10 +6,10 @@ pipeline "unseal_vault" {
     type = "featured"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.vault
+    description = local.conn_param_description
+    default     = connection.vault.default
   }
 
   param "key" {
@@ -19,11 +19,11 @@ pipeline "unseal_vault" {
 
   step "http" "unseal_vault" {
     method = "post"
-    url    = "${credential.vault[param.cred].address}/v1/sys/unseal"
+    url    = "${param.conn.address}/v1/sys/unseal"
 
     request_headers = {
       "Content-Type"  = "application/json"
-      "X-Vault-Token" = credential.vault[param.cred].token
+      "X-Vault-Token" = param.conn.token
     }
 
     request_body = jsonencode({
