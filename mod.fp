@@ -4,7 +4,7 @@ mod "vault" {
   color         = "#003A75"
   documentation = file("./README.md")
   icon          = "/images/mods/turbot/vault.svg"
-  categories    = ["access management"]
+  categories    = ["library", "access management"]
 
   opengraph {
     title       = "Hashicorp Vault Mod for Flowpipe"
