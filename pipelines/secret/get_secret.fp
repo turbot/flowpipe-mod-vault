@@ -3,7 +3,7 @@ pipeline "get_secret" {
   description = "Retrieves the secret at the specified location."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {

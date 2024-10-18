@@ -3,7 +3,7 @@ pipeline "unseal_vault" {
   description = "Used to enter a single root key share to progress the unsealing of the Vault."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {

@@ -3,7 +3,7 @@ pipeline "create_secret" {
   description = "Stores a secret at the specified location."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {
