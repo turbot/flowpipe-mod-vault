@@ -3,13 +3,13 @@ pipeline "create_secret" {
   description = "Stores a secret at the specified location."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.vault
+    description = local.conn_param_description
+    default     = connection.vault.default
   }
 
   param "path" {
@@ -24,10 +24,10 @@ pipeline "create_secret" {
 
   step "http" "create_secret" {
     method = "post"
-    url    = "${credential.vault[param.cred].address}/v1/secret/${param.path}"
+    url    = "${param.conn.address}/v1/secret/${param.path}"
 
     request_headers = {
-      "X-Vault-Token" = credential.vault[param.cred].token
+      "X-Vault-Token" = param.conn.token
     }
 
     request_body = jsonencode(param.secret)
