@@ -17,27 +17,27 @@ brew tap turbot/tap
 brew install flowpipe
 ```
 
-### Credentials
+### Connections
 
 By default, the following environment variables will be used for authentication:
 
 - `VAULT_ADDR`
 - `VAULT_TOKEN`
 
-You can also create `credential` resources in configuration files:
+You can also create `connection` resources in configuration files:
 
 ```sh
 vi ~/.flowpipe/config/vault.fpc
 ```
 
 ```hcl
-credential "vault" "default" {
+connection "vault" "default" {
   address = "http://127.0.0.1:8200"
   token = "hvs.FaKe"
 }
 ```
 
-For more information on credentials in Flowpipe, please see [Managing Credentials](https://flowpipe.io/docs/run/credentials).
+For more information on connections in Flowpipe, please see [Managing Connections](https://flowpipe.io/docs/run/connections).
 
 ### Usage
 
@@ -101,10 +101,10 @@ Run a pipeline:
 flowpipe pipeline run create_secret --arg path=my_path --arg secret='{"key1":"value1","key2":"value2"}'
 ```
 
-To use a specific `credential`, specify the `cred` pipeline argument:
+To use a specific `connection`, specify the `conn` pipeline argument:
 
 ```sh
-flowpipe pipeline run create_secret --arg path=my_path --arg secret='{"key1":"value1","key2":"value2"}' --arg cred=vault_profile
+flowpipe pipeline run create_secret --arg path=my_path --arg secret='{"key1":"value1","key2":"value2"}' --arg conn=connection.vault.my_conn
 ```
 
 ## Open Source & Contributing
