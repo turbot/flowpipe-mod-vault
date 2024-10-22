@@ -11,4 +11,10 @@ mod "vault" {
     description = "Run pipelines to supercharge your Vault workflows using Flowpipe."
     image       = "/images/mods/turbot/vault-social-graphic.png"
   }
+
+  require {
+    flowpipe {
+      min_version = "1.0.0"
+    }
+  }
 }
